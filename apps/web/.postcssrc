@@ -1,0 +1,30 @@
+{
+  "plugins": {
+    "postcss-import": {},
+    "postcss-mixins": {},
+    "postcss-nested": {},
+    "postcss-simple-vars": {},
+    "postcss-preset-env": {
+      "stage": 0,
+      "autoprefixer": {
+        "grid": true
+      },
+      "features": {
+        "custom-properties": true,
+        "nesting-rules": true,
+        "logical-properties-and-values": false
+      }
+    },
+    "cssnano": {
+      "preset": [
+        "default",
+        {
+          "discardComments": {
+            "removeAll": true
+          },
+          "normalizeWhitespace": true
+        }
+      ]
+    }
+  }
+}

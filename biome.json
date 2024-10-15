@@ -18,7 +18,10 @@
       "build-ncc",
       "generated",
       "*.py",
-      "./apps/ai/**"
+      "./apps/ai/**",
+      "./apps/web/coverage/**",
+      "./apps/web/cypress/**",
+      "./apps/web/dev-dist/**"
     ],
     "rules": {
       "suspicious": {
@@ -125,7 +128,10 @@
       ".vscode",
       ".all-contributorsrc",
       "**/__testfixtures__/**",
-      ".turbo"
+      ".turbo",
+      "./apps/web/coverage/**",
+      "./apps/web/cypress/**",
+      "./apps/web/dev-dist/**"
     ]
   },
   "organizeImports": {
@@ -136,7 +142,10 @@
       ".next",
       ".vscode",
       "build-ncc",
-      "**/__testfixtures__/**"
+      "**/__testfixtures__/**",
+      "./apps/web/coverage/**",
+      "./apps/web/cypress/**",
+      "./apps/web/dev-dist/**"
     ]
   }
 }
