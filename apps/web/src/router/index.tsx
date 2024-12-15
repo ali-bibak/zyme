@@ -1,35 +1,49 @@
 import { type ReactElement, Suspense, lazy } from "react";
+
 import { Navigate, Route, Routes } from "react-router-dom";
+
+// Hooks
 import { useAuth } from "../hooks/useAuth";
 
+// Types
+import type { Role } from "../contexts/AuthContext";
+
+// Pages
 const Home = lazy(() => import("../pages/Home"));
-const Dashboard = lazy(() => import("../pages/Dashboard"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 interface ProtectedRouteProps {
   element: ReactElement;
   isProtected: boolean;
+  roles?: Role[];
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   element,
   isProtected,
+  roles = [],
 }) => {
-  const { isAuthenticated } = useAuth();
-  console.log(
-    isAuthenticated ? "Logged in successfully!" : "Your TOKEN expired!",
-  );
+  const { isAuthenticated, userRoles } = useAuth();
 
-  return isProtected && !isAuthenticated ? (
-    <Navigate to="/" replace />
-  ) : (
-    element
-  );
+  const hasRequiredRole =
+    roles.length === 0 || roles.some((role) => userRoles.includes(role));
+
+  if (isProtected && !isAuthenticated) {
+    console.log("Access denied! User is not authenticated.");
+    return <Navigate to="/" replace />;
+  }
+
+  if (isProtected && !hasRequiredRole) {
+    console.log("Access denied! User lacks the required role.");
+    return <Navigate to="/not-authorized" replace />;
+  }
+
+  console.log("Access granted.");
+  return element;
 };
 
 export const routes = [
   { path: "/", element: <Home />, isProtected: false },
-  { path: "/dashboard", element: <Dashboard />, isProtected: true },
   { path: "*", element: <NotFound />, isProtected: false },
 ];
 

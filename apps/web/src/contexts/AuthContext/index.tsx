@@ -6,8 +6,10 @@ import {
   setToken,
 } from "../../utils/tokenUtils";
 
+export type Role = "ADMIN" | "USER" | "GUEST";
 export interface AuthContextType {
   isAuthenticated: boolean;
+  userRoles: Role[];
   login: (token: string) => void;
   logout: () => void;
 }
@@ -40,7 +42,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, userRoles: ["USER"], login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

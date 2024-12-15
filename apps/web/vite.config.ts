@@ -6,12 +6,18 @@ import { VitePWA } from "vite-plugin-pwa";
 import removeConsole from "vite-plugin-remove-console";
 import svgr from "vite-plugin-svgr";
 import "dotenv/config";
+import tailwindcss from "tailwindcss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     minify: "esbuild", // or 'terser'
     sourcemap: true,
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss()],
+    },
   },
   plugins: [
     react(),
@@ -21,7 +27,7 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,ttf,woff,woff2,eot,otf}"],
+        globPatterns: ["**/*.{js,html,ico,png,svg,ttf,woff,woff2,eot,otf}"],
       },
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {

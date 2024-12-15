@@ -5,30 +5,28 @@ import { BrowserRouter } from "react-router-dom";
 // Contexts
 import { AuthProvider } from "./contexts/AuthContext";
 
-// Styles
-import "./styles/index.scss";
-
 // Routes
 import Router from "./router";
 
+// Importing the CSS file
+import "./style.css";
+
 const rootElement = document.getElementById("root");
 
-if (!rootElement) {
-  throw new Error("Root element not found");
-}
-
-const App = () => {
-  return (
-    <AuthProvider>
+// Ensure rootElement exists before creating the root
+if (rootElement) {
+  const root = createRoot(rootElement);
+  root.render(
+    <StrictMode>
       <BrowserRouter>
-        <Router />
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
       </BrowserRouter>
-    </AuthProvider>
+    </StrictMode>,
   );
-};
-
-createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+} else {
+  console.error(
+    "Root element not found. Check your HTML file for an element with id='root'.",
+  );
+}
