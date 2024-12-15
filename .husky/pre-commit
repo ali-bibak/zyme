@@ -1,5 +1,2 @@
 pnpm run lint
 pnpm run test
-
-pnpm pretty-quick --staged
-npx lint-staged
