@@ -1,0 +1,25 @@
+{
+  "name": "@zyme/ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsx index.ts",
+    "eval": "npx tsx evals/run.ts $1",
+    "ingest": "npx tsx src/rag/ingest.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoevals": "0.0.111",
+    "chalk": "5.3.0",
+    "dotenv": "16.4.5",
+    "got": "14.4.5",
+    "openai": "4.76.3",
+    "ora": "8.1.1",
+    "tsx": "4.19.2",
+    "uuid": "11.0.3",
+    "zod": "3.24.1"
+  }
+}
