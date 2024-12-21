@@ -1,8 +1,6 @@
-To get started, clone the repository and install the dependencies:
+To get started
 
 ```bash
-git clone https://github.com/mohsenshafiei/zyme.git
-cd olgoo
 pnpm install
 ```
 
