@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@fakerjs/faker": "3.0.0",
+    "@next/env": "15.1.2",
     "@portabletext/react": "3.2.0",
     "@portabletext/types": "2.0.13",
     "@sanity/code-input": "5.1.2",

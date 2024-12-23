@@ -257,6 +257,9 @@ importers:
       '@fakerjs/faker':
         specifier: 3.0.0
         version: 3.0.0
+      '@next/env':
+        specifier: 15.1.2
+        version: 15.1.2
       '@portabletext/react':
         specifier: 3.2.0
         version: 3.2.0(react@19.0.0)
