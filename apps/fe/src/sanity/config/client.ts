@@ -1,5 +1,5 @@
 import { createClient } from "next-sanity";
-import "@/envConfig.ts";
+import "@/env";
 
 const config = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "",
