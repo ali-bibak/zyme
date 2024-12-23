@@ -1,14 +1,14 @@
 import schemas from "@/sanity/schemas";
 import { codeInput } from "@sanity/code-input";
 import { defineConfig } from "sanity";
-import { structureTool } from "sanity/structure";
-
 import { media, mediaAssetSource } from "sanity-plugin-media";
 import { muxInput } from "sanity-plugin-mux-input";
+import { structureTool } from "sanity/structure";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "";
+
 const config = defineConfig({
   projectId: projectId,
   dataset: dataset,
@@ -21,6 +21,7 @@ const config = defineConfig({
     media(),
     muxInput({ mp4_support: "standard" }),
   ],
+  // @ts-ignore
   schema: { types: schemas },
   tools: (tools) => {
     return tools.map((t) => {
