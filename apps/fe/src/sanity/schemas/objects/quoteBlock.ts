@@ -1,6 +1,7 @@
+import { defineType } from "sanity";
 import { imageWithAltField } from "../../shared/imageWithAltField";
 
-export const quoteBlock = {
+export const quoteBlock = defineType({
   type: "object",
   name: "quoteBlock",
   title: "Quote Block",
@@ -45,4 +46,4 @@ export const quoteBlock = {
       };
     },
   },
-};
+});

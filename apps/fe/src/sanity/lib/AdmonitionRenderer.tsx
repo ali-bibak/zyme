@@ -1,8 +1,19 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, FC } from "react";
+interface AdmonitionValue {
+  variant: "success" | "info" | "warning" | "error";
+}
 
-const AdmonitionRenderer = (props) => {
-  let admonitionColor = {} as CSSProperties;
-  switch (props.value.variant) {
+interface AdmonitionRendererProps {
+  value: AdmonitionValue;
+  renderDefault: (props: AdmonitionRendererProps) => React.JSX.Element;
+}
+
+const AdmonitionRenderer: FC<AdmonitionRendererProps> = (props) => {
+  const { value, renderDefault } = props;
+
+  let admonitionColor: CSSProperties = {};
+
+  switch (value.variant) {
     case "success":
       admonitionColor = {
         background: "rgba(162, 219, 0, 0.15)",
@@ -27,7 +38,6 @@ const AdmonitionRenderer = (props) => {
         borderLeft: "4px solid rgba(255, 0, 0, 1)",
       };
       break;
-
     default:
       admonitionColor = {
         background: "rgba(162, 219, 0, 0.15)",
@@ -42,7 +52,7 @@ const AdmonitionRenderer = (props) => {
           ...admonitionColor,
         }}
       >
-        {props.renderDefault(props)}
+        {renderDefault(props)}
       </aside>
     </div>
   );

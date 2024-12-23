@@ -1,9 +1,24 @@
 import { defineType } from "sanity";
 
+import type { ObjectDefinition, ObjectOptions } from "sanity";
+
 interface SectionConfig {
   type: string;
   name: string;
   group: string;
+}
+
+interface ExtendedObjectOptions extends ObjectOptions {
+  collapsible?: boolean;
+  collapsed?: boolean;
+  variants?: {
+    assetUrl: string;
+  }[];
+}
+
+export interface ExtendedObjectDefinition
+  extends Omit<ObjectDefinition, "options"> {
+  options?: ExtendedObjectOptions;
 }
 
 export function defineSections(): SectionConfig {
@@ -14,10 +29,8 @@ export function defineSections(): SectionConfig {
   };
 }
 
-export function defineSection(
-  config: Parameters<typeof defineType>[0],
-): ReturnType<typeof defineType> {
-  return defineType(config);
+export function defineSection(def: ExtendedObjectDefinition) {
+  return defineType(def);
 }
 
 export default defineSections;

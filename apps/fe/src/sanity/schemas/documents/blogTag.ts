@@ -8,6 +8,7 @@ export const blogTag = defineType({
   type: "document",
   icon: TagIcon,
   options: {
+    // @ts-ignore
     localized: false,
   },
   fields: [

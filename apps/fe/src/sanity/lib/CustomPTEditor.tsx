@@ -3,7 +3,7 @@ import { PortableTextInput, type PortableTextInputProps } from "sanity";
 const onPaste: PortableTextInputProps["onPaste"] = (data) => {
   const text = data.event.clipboardData.getData("text/plain") || "";
 
-  function isTable(data) {
+  function isTable(data: string) {
     if (!data || typeof data !== "string") return false;
     const rows = data?.split("\n");
     if (Number(rows?.length) < 2) return false;

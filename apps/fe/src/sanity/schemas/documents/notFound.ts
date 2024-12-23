@@ -7,6 +7,7 @@ export const notFound = defineType({
   title: "Not Found (404) Page",
   type: "document",
   options: {
+    // @ts-ignore
     disableCreation: true,
     disablePublishStatus: true,
     hideSeo: true,
