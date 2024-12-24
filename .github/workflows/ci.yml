@@ -1,4 +1,4 @@
-name: ci
+name: CI
 
 on:
   push:
@@ -11,16 +11,43 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - run: corepack enable
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm build
-      - run: pnpm vitest --coverage
-      - uses: codecov/codecov-action@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint code
+        run: pnpm lint
+
+      - name: Build application
+        env:
+          NEXT_SANITY_API_TOKEN: ${{ secrets.NEXT_SANITY_API_TOKEN }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+          NEXT_PUBLIC_SANITY_API_VERSION: ${{ secrets.NEXT_PUBLIC_SANITY_API_VERSION }}
+        run: pnpm build
+
+      - name: Run tests with coverage
+        env:
+          NEXT_SANITY_API_TOKEN: ${{ secrets.NEXT_SANITY_API_TOKEN }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+          NEXT_PUBLIC_SANITY_API_VERSION: ${{ secrets.NEXT_PUBLIC_SANITY_API_VERSION }}
+        run: pnpm vitest --coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+
  

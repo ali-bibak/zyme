@@ -36,6 +36,11 @@ import { youtubeVideo } from "@/sanity/schemas/objects/youtubeVideo";
 // Sections
 import { testimonials } from "@/sanity/schemas/sections/testimonials";
 
+import { announcement } from "./settings/announcement";
+import { banner } from "./settings/banner";
+// Settings
+import { redirect } from "./settings/navigation";
+
 const schemas = [
   page,
   job,
@@ -71,6 +76,11 @@ const schemas = [
 
   // Sections
   testimonials,
+
+  // Settings
+  redirect,
+  announcement,
+  banner,
 ];
 
 export default schemas;

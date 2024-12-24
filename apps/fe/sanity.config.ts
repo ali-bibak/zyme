@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import schemas from "@/sanity/schemas";
 import { codeInput } from "@sanity/code-input";
 import { defineConfig } from "sanity";
@@ -5,9 +6,9 @@ import { media, mediaAssetSource } from "sanity-plugin-media";
 import { muxInput } from "sanity-plugin-mux-input";
 import { structureTool } from "sanity/structure";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "";
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "";
+const projectId = env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "";
+const dataset = env.NEXT_PUBLIC_SANITY_DATASET ?? "";
+const apiVersion = env.NEXT_PUBLIC_SANITY_API_VERSION ?? "";
 
 const config = defineConfig({
   projectId: projectId,
