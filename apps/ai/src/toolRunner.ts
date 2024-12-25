@@ -1,5 +1,7 @@
-import type OpenAI from "openai";
 import { dadJoke, dadJokeToolDefinition } from "./tools/dadJoke";
+
+// Types
+import type OpenAI from "openai";
 
 export const runTool = async (
   toolCall: OpenAI.Chat.Completions.ChatCompletionMessageToolCall,
