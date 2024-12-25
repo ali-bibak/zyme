@@ -7,6 +7,7 @@ esbuild
     minify: true,
     platform: "node",
     outfile: "build/index.js",
+    external: ["fastify", "@fastify/*", "pg", "ioredis"],
     banner: {
       js: `
       import { createRequire } from 'module';

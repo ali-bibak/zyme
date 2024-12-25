@@ -1,6 +1,9 @@
+// Plugins
 import cors, { type FastifyCorsOptions } from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import fastifyRateLimit from "@fastify/rate-limit";
+import Swagger from "@fastify/swagger";
+import SwaggerUI from "@fastify/swagger-ui";
 
 // Fastify
 import Fastify, { type FastifyPluginCallback } from "fastify";
@@ -78,6 +81,26 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
     timeWindow: 60 * 1000, // 1 minute
   });
 
+  await fastify.register(Swagger, {
+    openapi: {
+      openapi: "3.1.0",
+      info: {
+        title: "zyme",
+        version: process.env.npm_package_version ?? "0.0.0",
+      },
+    },
+  });
+
+  await fastify.register(SwaggerUI, {
+    routePrefix: "/api-docs",
+    logo: {
+      type: "image/png",
+      content: Buffer.from("iVBOR...", "base64"),
+      href: "/documentation",
+      target: "_blank",
+    },
+  });
+
   // const authPlugin = await getAuthPlugin(process.env.AUTH_SERVICE_URL);
   // await fastify.register(authPlugin);
 
@@ -87,7 +110,6 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
     await fastify.register(plugin);
   }
 
-  console.log("hello");
   await fastify.listen({ port, host: "0.0.0.0" }).catch((err) => {
     fastify.log.error(err);
     process.exit(1);
@@ -99,7 +121,11 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
 const routes: FastifyPluginCallback = (instance, _opts, done) => {
   instance.get("/", async (_, reply) => {
     reply.type("application/json").code(200);
-    return { data: {} };
+    return {
+      data: {
+        message: "hello",
+      },
+    };
   });
   done();
 };
