@@ -8,8 +8,14 @@ import SwaggerUI from "@fastify/swagger-ui";
 // Fastify
 import Fastify, { type FastifyPluginCallback } from "fastify";
 
+// Assets
+import { LOGO_DARK } from "./public/base64";
+
+// Router
+import { systemRoutes } from "./routes";
+
 export const initApp = async (toRegister: FastifyPluginCallback[]) => {
-  const port = 3002;
+  const port = 8081;
   if (Number.isNaN(port)) {
     throw new Error(`Invalid port ${port}`);
   }
@@ -86,16 +92,16 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
       openapi: "3.1.0",
       info: {
         title: "zyme",
-        version: process.env.npm_package_version ?? "0.0.0",
+        version: process.env.NPM_PACKAGE_VERSION ?? "0.0.0",
       },
     },
   });
 
   await fastify.register(SwaggerUI, {
-    routePrefix: "/api-docs",
+    routePrefix: "/docs",
     logo: {
-      type: "image/png",
-      content: Buffer.from("iVBOR...", "base64"),
+      type: "image/svg+xml",
+      content: Buffer.from(LOGO_DARK, "base64"),
       href: "/documentation",
       target: "_blank",
     },
@@ -118,16 +124,4 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
   return fastify;
 };
 
-const routes: FastifyPluginCallback = (instance, _opts, done) => {
-  instance.get("/", async (_, reply) => {
-    reply.type("application/json").code(200);
-    return {
-      data: {
-        message: "hello",
-      },
-    };
-  });
-  done();
-};
-
-export const runServer = async () => await initApp([routes]);
+export const runServer = async () => await initApp([systemRoutes]);
