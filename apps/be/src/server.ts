@@ -1,11 +1,12 @@
 import cors, { type FastifyCorsOptions } from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import fastifyRateLimit from "@fastify/rate-limit";
+
 // Fastify
 import Fastify, { type FastifyPluginCallback } from "fastify";
 
 export const initApp = async (toRegister: FastifyPluginCallback[]) => {
-  const port = process.env.PORT || 3002;
+  const port = 3002;
   if (Number.isNaN(port)) {
     throw new Error(`Invalid port ${port}`);
   }
@@ -86,7 +87,11 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
     await fastify.register(plugin);
   }
 
-  await fastify.listen({ port, host: "0.0.0.0" });
+  console.log("hello");
+  await fastify.listen({ port, host: "0.0.0.0" }).catch((err) => {
+    fastify.log.error(err);
+    process.exit(1);
+  });
 
   return fastify;
 };
@@ -96,6 +101,7 @@ const routes: FastifyPluginCallback = (instance, _opts, done) => {
     reply.type("application/json").code(200);
     return { data: {} };
   });
+  done();
 };
 
 export const runServer = async () => await initApp([routes]);
