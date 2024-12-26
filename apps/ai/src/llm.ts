@@ -1,15 +1,9 @@
 import { zodFunction, zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
+import type { AIMessage } from "../types";
 import { openai } from "./ai";
 import { getSummary } from "./memory";
 import { systemPrompt as defaultSystemPrompt } from "./systemPrompt";
-
-// Types
-import type { AIMessage } from "../types";
-
-enum AIModels {
-  primary = "gpt-4o-mini",
-}
 
 export const runLLM = async ({
   messages,
@@ -21,15 +15,12 @@ export const runLLM = async ({
   tools?: any[];
   temperature?: number;
   systemPrompt?: string;
-  repoContent?: string;
 }) => {
   const formattedTools = tools.map(zodFunction);
   const summary = await getSummary();
 
-  console.log(formattedTools);
-
   const response = await openai.chat.completions.create({
-    model: AIModels.primary,
+    model: "gpt-4o-mini",
     temperature,
     messages: [
       {
@@ -52,7 +43,7 @@ export const runLLM = async ({
 
 export const runApprovalCheck = async (userMessage: string) => {
   const response = await openai.beta.chat.completions.parse({
-    model: AIModels.primary,
+    model: "gpt-4o-mini",
     temperature: 0.1,
     response_format: zodResponseFormat(
       z.object({
@@ -64,7 +55,7 @@ export const runApprovalCheck = async (userMessage: string) => {
       {
         role: "system",
         content:
-          "Determine if the user approved the jokes generation. If you are not sure, then it is not approved.",
+          "Determine if the user approved the image generation. If you are not sure, then it is not approved.",
       },
       { role: "user", content: userMessage },
     ],

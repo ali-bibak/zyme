@@ -16,8 +16,7 @@ export const qa = async (req: Request, res: Response): Promise<any> => {
     const parsedQuery = querySchema.parse(req.query);
     const { message, url } = parsedQuery;
     const reply: any = await runAgent({
-      userMessage: message,
-      url,
+      userMessage: `${message} url: "${url}"`,
       tools,
     });
     const processedReply = processReply(reply);

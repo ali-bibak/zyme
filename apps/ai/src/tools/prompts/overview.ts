@@ -1,12 +1,26 @@
 import { z } from "zod";
 
+// Types
+import type { ToolFn } from "../../../types";
+
+// Services
+import EmbeddingHandler from "../../services/Embedding";
+
+// Ingest
+import { getRepoIngest } from "./../../utils/ingest";
+
 export const packageOverviewToolDefinition = {
   name: "package_overview",
   parameters: z.object({
-    packageName: z
+    url: z
       .string()
       .describe(
-        "The name of the open-source package to retrieve the overview for.",
+        "The URL of the open-source package's repository or homepage to analyze.",
+      ),
+    message: z
+      .string()
+      .describe(
+        "A descriptive message or context for the getting build blocks request.",
       ),
   }),
   description:
@@ -16,4 +30,16 @@ export const packageOverviewToolDefinition = {
     "The tool highlights the development status (e.g., actively maintained, deprecated, or experimental), current version, and community support options like forums, discussions, or Slack channels. " +
     "Additionally, it outlines any known limitations, prerequisites, or dependencies to help users quickly assess the package's suitability for their projects. " +
     "This makes it an ideal tool for evaluating open-source tools, comparing alternatives, and integrating the right solutions into your workflows.",
+};
+
+type Args = z.infer<typeof packageOverviewToolDefinition.parameters>;
+
+export const getOverview: ToolFn<Args, string> = async ({ toolArgs }) => {
+  const { url, message } = toolArgs;
+  const result = await getRepoIngest(url);
+  if (result) {
+    const { data } = result;
+    const answer = await EmbeddingHandler.qa(message, data);
+    return answer;
+  }
 };
