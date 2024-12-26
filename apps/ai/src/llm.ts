@@ -21,9 +21,12 @@ export const runLLM = async ({
   tools?: any[];
   temperature?: number;
   systemPrompt?: string;
+  repoContent?: string;
 }) => {
   const formattedTools = tools.map(zodFunction);
   const summary = await getSummary();
+
+  console.log(formattedTools);
 
   const response = await openai.chat.completions.create({
     model: AIModels.primary,
