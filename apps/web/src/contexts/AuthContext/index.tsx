@@ -1,17 +1,24 @@
 import type React from "react";
-import { type ReactNode, createContext, useEffect, useState } from "react";
-import {
-  isTokenAvailable,
-  removeToken,
-  setToken,
-} from "../../utils/tokenUtils";
+import { type ReactNode, createContext } from "react";
+
+// Auth
+import { ClerkProvider } from "@clerk/clerk-react";
+import { dark } from "@clerk/themes";
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
+}
 
 export type Role = "ADMIN" | "USER" | "GUEST";
 export interface AuthContextType {
-  isAuthenticated: boolean;
+  isAuthenticated?: boolean;
+  isLoaded?: boolean;
   userRoles: Role[];
-  login: (token: string) => void;
+  orgRole?: string | null;
   logout: () => void;
+  getToken: () => Promise<string | null>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -23,29 +30,15 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    isTokenAvailable(),
-  );
-
-  const login = (token: string) => {
-    setToken(token);
-    setIsAuthenticated(true);
-  };
-
-  const logout = () => {
-    removeToken();
-    setIsAuthenticated(false);
-  };
-
-  useEffect(() => {
-    setIsAuthenticated(isTokenAvailable());
-  }, []);
-
   return (
-    <AuthContext.Provider
-      value={{ isAuthenticated, userRoles: ["USER"], login, logout }}
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      afterSignOutUrl="/"
+      appearance={{
+        baseTheme: dark,
+      }}
     >
       {children}
-    </AuthContext.Provider>
+    </ClerkProvider>
   );
 };

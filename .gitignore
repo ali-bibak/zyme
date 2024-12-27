@@ -42,3 +42,4 @@ tsconfig.tsbuildinfo
 
 **/*/*.env
 **/*/build
+**/*/build/**

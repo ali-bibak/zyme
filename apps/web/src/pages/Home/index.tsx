@@ -1,9 +1,8 @@
 function Home() {
   return (
-    <div>
-      <h1>This is the home page</h1>
+    <div className="bg-black text-white min-h-screen w-full flex items-center justify-center">
+      This is home page
     </div>
   );
 }
-
 export default Home;
