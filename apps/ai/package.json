@@ -8,8 +8,7 @@
     "start": "npx tsx index.ts",
     "start:prod": "pm2 start index.ts",
     "dev": "npx tsx watch index.ts",
-    "eval": "npx tsx evals/run.ts $1",
-    "ingest": "npx tsx src/rag/ingest.ts"
+    "eval": "npx tsx evals/run.ts $1"
   },
   "keywords": [],
   "author": "",

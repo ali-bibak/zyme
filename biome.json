@@ -142,6 +142,7 @@
       ".next",
       ".vscode",
       "build-ncc",
+      "./**/**/cloned_repo",
       "**/__testfixtures__/**",
       "./apps/web/coverage/**",
       "./apps/web/cypress/**",

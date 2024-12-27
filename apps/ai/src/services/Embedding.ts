@@ -1,6 +1,5 @@
 import { OpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { loadQARefineChain } from "langchain/chains";
-// import { Document } from "@langchain/schema";
 import { Document } from "langchain/document";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 

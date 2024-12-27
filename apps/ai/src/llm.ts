@@ -1,9 +1,14 @@
 import { zodFunction, zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
-import type { AIMessage } from "../types";
 import { openai } from "./ai";
 import { getSummary } from "./memory";
-import { systemPrompt as defaultSystemPrompt } from "./systemPrompt";
+import {
+  systemPrompt as defaultSystemPrompt,
+  systemPromptSummary,
+} from "./tools/systemPrompt";
+
+// Types
+import type { AIMessage } from "../types";
 
 export const runLLM = async ({
   messages,
@@ -66,8 +71,7 @@ export const runApprovalCheck = async (userMessage: string) => {
 
 export const summarizeMessages = async (messages: AIMessage[]) => {
   const response = await runLLM({
-    systemPrompt:
-      "Summarize the key points of the conversation in a concise way that would be helpful as context for future interactions. Make it like a play by play of the conversation.",
+    systemPrompt: systemPromptSummary,
     messages,
     temperature: 0.3,
   });

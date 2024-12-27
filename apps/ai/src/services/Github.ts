@@ -5,6 +5,8 @@ import path from "path";
 type FileContent = { [filePath: string]: string };
 type PreparedData = { filePath: string; promptFriendlyContent: string };
 
+function noop() {}
+
 export default class GitHubClient {
   private repoUrl: string;
   private cloneBaseDir: string;
@@ -13,10 +15,10 @@ export default class GitHubClient {
   constructor(repoUrl: string, cloneBaseDir: string = "./cloned_repo") {
     this.repoUrl = repoUrl;
     this.cloneBaseDir = cloneBaseDir;
-    this.cloneDir = this.getCloneDirFromUrl();
+    this.cloneDir = this._getCloneDirFromUrl();
   }
 
-  private getCloneDirFromUrl(): string {
+  private _getCloneDirFromUrl(): string {
     const urlPath = new URL(this.repoUrl).pathname
       .replace(/^\//, "")
       .replace(/\/$/, "")
@@ -24,26 +26,20 @@ export default class GitHubClient {
     return path.join(this.cloneBaseDir, urlPath);
   }
 
-  cloneRepo(): void {
-    /** Clones the repository to a structured directory based on its URL. */
+  _clone(): void {
     if (fs.existsSync(this.cloneDir)) {
-      console.log(
-        `Repository already exists at ${this.cloneDir}. Skipping clone.`,
-      );
+      noop();
     } else {
-      console.log(`Cloning repository into ${this.cloneDir}...`);
       execSync(`git clone ${this.repoUrl} ${this.cloneDir}`, {
         stdio: "inherit",
       });
     }
   }
 
-  extractFiles(
+  _extractFiles(
     extensions: string[] = [".md", ".txt", ".js", ".html", ".css"],
   ): FileContent {
-    /** Extracts content from files in the cloned repository. */
     const fileContents: FileContent = {};
-
     const walkDir = (dir: string): void => {
       fs.readdirSync(dir).forEach((file) => {
         const fullPath = path.join(dir, file);
@@ -60,12 +56,10 @@ export default class GitHubClient {
     return fileContents;
   }
 
-  summarizeFile(content: string, maxLength: number = 512): string {
-    /** Summarizes file content to fit within the LLM-friendly limit. */
+  _strippedFile(content: string, maxLength: number = 512): string {
     const lines = content.split("\n");
-    const summary: string[] = [];
+    const files: string[] = [];
     let currentLength = 0;
-
     for (const line of lines) {
       const strippedLine = line.trim();
       if (strippedLine && !strippedLine.startsWith("#")) {
@@ -73,22 +67,20 @@ export default class GitHubClient {
         if (currentLength > maxLength) {
           break;
         }
-        summary.push(strippedLine);
+        files.push(strippedLine);
       }
     }
 
-    return summary.join("\n");
+    return files.join("\n");
   }
 
   prepareIngest(): PreparedData[] {
-    /** Prepares repository content for LLM ingestion. */
-    this.cloneRepo();
-    const files = this.extractFiles();
+    this._clone();
+    const files = this._extractFiles();
     const preparedData: PreparedData[] = [];
-
     for (const [filePath, content] of Object.entries(files)) {
-      const summary = this.summarizeFile(content);
-      const promptFriendlyContent = `File: ${filePath}\n\n${summary}`;
+      const strippedFile = this._strippedFile(content);
+      const promptFriendlyContent = `File: ${filePath}\n\n${strippedFile}`;
       preparedData.push({ filePath, promptFriendlyContent });
     }
 
