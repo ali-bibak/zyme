@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import { runAgent } from "../agent";
 import { tools } from "../tools";
 
@@ -8,13 +7,17 @@ import type { Request, Response } from "express";
 
 const querySchema = z.object({
   message: z.string().nonempty("The 'message' query parameter is required."),
+  url: z.string().nonempty("The 'url' query parameter is required."),
 });
 
 export const qa = async (req: Request, res: Response): Promise<any> => {
   try {
     const parsedQuery = querySchema.parse(req.query);
-    const { message } = parsedQuery;
-    const reply: any = await runAgent({ userMessage: message, tools });
+    const { message, url } = parsedQuery;
+    const reply: any = await runAgent({
+      userMessage: `${message} url: "${url}"`,
+      tools,
+    });
     const processedReply = processReply(reply);
 
     res.status(200).json({

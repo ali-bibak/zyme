@@ -1,3 +1,9 @@
-import { dadJokeToolDefinition } from "./dadJoke";
+import { packageBuildingBlocksToolDefinition } from "./prompts/blocks";
+import { packageExamplesToolDefinition } from "./prompts/example";
+import { packageOverviewToolDefinition } from "./prompts/overview";
 
-export const tools = [dadJokeToolDefinition];
+export const tools = [
+  packageBuildingBlocksToolDefinition,
+  packageExamplesToolDefinition,
+  packageOverviewToolDefinition,
+];

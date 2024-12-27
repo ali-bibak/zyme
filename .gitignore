@@ -38,5 +38,7 @@ tsconfig.tsbuildinfo
 **/*/*.sln
 **/*/*.sw?
 **/*/dev-dist/*
+**/*/cloned_repo
 
 **/*/*.env
+**/*/build

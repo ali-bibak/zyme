@@ -1,6 +1,6 @@
+import { runTool } from "./hub";
 import { runLLM } from "./llm";
 import { addMessages, getMessages, saveToolResponse } from "./memory";
-import { runTool } from "./toolRunner";
 import { logMessage, showLoader } from "./ui";
 
 // Types
@@ -14,8 +14,8 @@ export const runAgent = async ({
   tools: any[];
 }) => {
   const history = await getMessages();
-
   const loader = showLoader("🤔");
+  await addMessages([{ role: "user", content: userMessage }]);
 
   while (true) {
     const history = await getMessages();

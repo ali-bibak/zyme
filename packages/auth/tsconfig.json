@@ -1,0 +1,10 @@
+{
+  "include": ["./src"],
+  "exclude": ["./dist", "./build", "./node_modules"],
+  "extends": "@zyme/tsconfig/lib.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "skipLibCheck": true
+  }
+}

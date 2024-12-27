@@ -1,0 +1,38 @@
+{
+  "name": "@zyme/auth",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage"
+  },
+  "files": [
+    "./dist",
+    "!**/*.test.js",
+    "!**/*.test.d.ts",
+    "README.md",
+    "tsconfig.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "ts-node": "^10.9.2",
+    "typescript": "5.7.2",
+    "vitest": "2.1.8"
+  },
+  "dependencies": {
+    "@zyme/tsconfig": "workspace:*",
+    "axios": "1.7.9",
+    "fastify": "5.2.0",
+    "fastify-plugin": "5.0.1"
+  }
+}
