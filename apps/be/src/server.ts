@@ -1,3 +1,4 @@
+import { clerkPlugin } from "@clerk/fastify";
 // Plugins
 import cors, { type FastifyCorsOptions } from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
@@ -87,6 +88,8 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
     timeWindow: 60 * 1000, // 1 minute
   });
 
+  await fastify.register(clerkPlugin);
+
   await fastify.register(Swagger, {
     openapi: {
       openapi: "3.1.0",
@@ -102,7 +105,7 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
     logo: {
       type: "image/svg+xml",
       content: Buffer.from(LOGO_DARK, "base64"),
-      href: "/documentation",
+      href: "/docs",
       target: "_blank",
     },
   });

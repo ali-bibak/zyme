@@ -10,6 +10,7 @@ import Router from "./router";
 
 // Importing the CSS file
 import "./style.css";
+import Navbar from "./components/Navbar";
 
 const rootElement = document.getElementById("root");
 
@@ -20,6 +21,7 @@ if (rootElement) {
     <StrictMode>
       <BrowserRouter>
         <AuthProvider>
+          <Navbar />
           <Router />
         </AuthProvider>
       </BrowserRouter>

@@ -3,7 +3,7 @@ import { type ReactElement, Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 // Hooks
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "@clerk/clerk-react";
 
 // Types
 import type { Role } from "../contexts/AuthContext";
@@ -23,12 +23,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   isProtected,
   roles = [],
 }) => {
-  const { isAuthenticated, userRoles } = useAuth();
+  const { isSignedIn, orgRole } = useAuth();
 
   const hasRequiredRole =
     roles.length === 0 || roles.some((role) => userRoles.includes(role));
 
-  if (isProtected && !isAuthenticated) {
+  if (isProtected && !isSignedIn) {
     console.log("Access denied! User is not authenticated.");
     return <Navigate to="/" replace />;
   }

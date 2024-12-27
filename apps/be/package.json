@@ -28,6 +28,7 @@
     "vitest": "2.1.8"
   },
   "dependencies": {
+    "@clerk/fastify": "2.1.4",
     "@fastify/autoload": "6.0.3",
     "@fastify/busboy": "3.1.1",
     "@fastify/cors": "10.0.1",
