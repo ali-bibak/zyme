@@ -1,7 +1,18 @@
+import { useState } from "react";
+import Blocknote from "../../components/Blocknote";
+import {
+  generateBlockNotes,
+  groupBlockNotesFlat,
+} from "../../utils/generateMarkdownFiles";
+
+const notes = generateBlockNotes();
+const groupedNotesFlat = groupBlockNotesFlat(notes);
 function Home() {
+  const [markdownFiles] = useState(groupedNotesFlat);
+
   return (
-    <div className="bg-black text-white min-h-screen w-full flex items-center justify-center">
-      This is home page
+    <div className="text-white min-h-screen w-full flex items-center justify-center">
+      <Blocknote items={markdownFiles} />
     </div>
   );
 }

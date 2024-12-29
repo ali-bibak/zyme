@@ -29,16 +29,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     roles.length === 0 || roles.some((role) => userRoles.includes(role));
 
   if (isProtected && !isSignedIn) {
-    console.log("Access denied! User is not authenticated.");
     return <Navigate to="/" replace />;
   }
 
   if (isProtected && !hasRequiredRole) {
-    console.log("Access denied! User lacks the required role.");
     return <Navigate to="/not-authorized" replace />;
   }
 
-  console.log("Access granted.");
   return element;
 };
 
@@ -49,7 +46,7 @@ export const routes = [
 
 const Router = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div />}>
       <Routes>
         {routes.map(({ path, element, isProtected }) => (
           <Route
