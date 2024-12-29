@@ -1,6 +1,12 @@
 import type { FastifyPluginCallback } from "fastify";
 
 import { getUser } from "src/controllers/user";
+import {
+  checkSubscriptionStatus,
+  createPaymentLink,
+  createSubscription,
+  handleWebhook,
+} from "../controllers/payment";
 // Controller
 import { config, up } from "../controllers/system";
 
@@ -40,5 +46,30 @@ export const systemRoutes: FastifyPluginCallback = (instance, _opts, done) => {
     },
     getUser,
   );
+  done();
+};
+
+export const paymentWebhookRoutes: FastifyPluginCallback = (
+  instance,
+  _opts,
+  done,
+) => {
+  instance.addContentTypeParser(
+    "application/json",
+    { parseAs: "buffer" },
+    (req, body, done) => {
+      done(null, body);
+    },
+  );
+
+  instance.post("/webhook", handleWebhook);
+
+  done();
+};
+
+export const paymentRoutes: FastifyPluginCallback = (instance, _opts, done) => {
+  instance.post("/create-subscription", createSubscription);
+  instance.get("/subscription/:customerId/:productId", checkSubscriptionStatus);
+  instance.post("/create-payment-link", createPaymentLink);
   done();
 };
