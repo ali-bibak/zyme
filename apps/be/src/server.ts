@@ -14,8 +14,12 @@ import { LOGO_DARK } from "./public/base64";
 
 // Router
 import { systemRoutes } from "./routes";
+import { paymentRoutes } from "./routes";
+import { paymentWebhookRoutes } from "./routes";
 
-export const initApp = async (toRegister: FastifyPluginCallback[]) => {
+export const initApp = async (
+  toRegister: { plugin: FastifyPluginCallback; prefix?: string }[],
+) => {
   const port = 8081;
   if (Number.isNaN(port)) {
     throw new Error(`Invalid port ${port}`);
@@ -110,13 +114,15 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
     },
   });
 
+  await fastify.register(paymentWebhookRoutes, { prefix: "/payment" });
+
   // const authPlugin = await getAuthPlugin(process.env.AUTH_SERVICE_URL);
   // await fastify.register(authPlugin);
 
   await fastify.register(fastifyMultipart);
 
-  for (const plugin of toRegister) {
-    await fastify.register(plugin);
+  for (const { plugin, prefix } of toRegister) {
+    await fastify.register(plugin, prefix ? { prefix } : {});
   }
 
   await fastify.listen({ port, host: "0.0.0.0" }).catch((err) => {
@@ -127,4 +133,9 @@ export const initApp = async (toRegister: FastifyPluginCallback[]) => {
   return fastify;
 };
 
-export const runServer = async () => await initApp([systemRoutes]);
+const allRoutes = [
+  { plugin: systemRoutes },
+  { plugin: paymentRoutes, prefix: "/payment" },
+];
+
+export const runServer = async () => await initApp(allRoutes);

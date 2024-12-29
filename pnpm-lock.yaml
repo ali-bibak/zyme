@@ -44,6 +44,12 @@ importers:
 
   .:
     dependencies:
+      '@biomejs/cli-darwin-x64':
+        specifier: 1.9.4
+        version: 1.9.4
+      '@stripe/stripe-js':
+        specifier: 5.4.0
+        version: 5.4.0
       execa:
         specifier: ^9.3.1
         version: 9.4.0
@@ -59,6 +65,9 @@ importers:
       read-pkg:
         specifier: ^9.0.1
         version: 9.0.1
+      stripe:
+        specifier: 17.5.0
+        version: 17.5.0
       terminal-link:
         specifier: ^3.0.0
         version: 3.0.0
@@ -78,6 +87,9 @@ importers:
       '@types/npm-registry-fetch':
         specifier: ^8.0.7
         version: 8.0.7
+      '@types/stripe':
+        specifier: 8.0.417
+        version: 8.0.417
       '@vitest/coverage-v8':
         specifier: ^1.6.0
         version: 1.6.0(vitest@1.6.0(@types/node@20.16.5)(jsdom@25.0.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.47))(terser@5.34.1))
@@ -199,27 +211,6 @@ importers:
       '@types/express':
         specifier: 5.0.0
         version: 5.0.0
-
-  apps/ai/cloned_repo:
-    dependencies:
-      '@babel/core':
-        specifier: ^7.25.2
-        version: 7.26.0
-      '@babel/helper-plugin-utils':
-        specifier: ^7.24.8
-        version: 7.25.9
-      '@babel/parser':
-        specifier: ^7.25.3
-        version: 7.26.3
-      '@babel/types':
-        specifier: ^7.25.2
-        version: 7.26.3
-      cosmiconfig:
-        specifier: ^9.0.0
-        version: 9.0.0(typescript@5.7.2)
-      find-up:
-        specifier: ^7.0.0
-        version: 7.0.0
 
   apps/be:
     dependencies:
@@ -504,7 +495,7 @@ importers:
         version: 4.3.2(vite@5.4.11(@types/node@20.16.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.40))(terser@5.34.1))
       '@vitest/coverage-v8':
         specifier: 2.1.8
-        version: 2.1.8(vitest@2.1.8(@types/node@20.16.5)(@vitest/ui@2.0.5)(jsdom@25.0.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.40))(terser@5.34.1))
+        version: 2.1.8(vitest@2.1.8)
       '@vitest/ui':
         specifier: 2.0.5
         version: 2.0.5(vitest@2.1.8)
@@ -607,7 +598,7 @@ importers:
         version: 4.3.2(vite@5.4.6(@types/node@22.0.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.40))(terser@5.34.1))
       '@vitest/coverage-v8':
         specifier: 2.0.5
-        version: 2.0.5(vitest@2.1.3(@types/node@22.0.2)(@vitest/ui@2.0.5)(jsdom@25.0.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.40))(terser@5.34.1))
+        version: 2.0.5(vitest@2.1.3)
       '@vitest/ui':
         specifier: 2.0.5
         version: 2.0.5(vitest@2.1.3)
@@ -1552,10 +1543,6 @@ packages:
     resolution: {integrity: sha512-9DGttpmPvIxBb/2uwpVo3dqJ+O6RooAFOS+lB+xDqoE2PVCE8nfoHMdZLpfCQRLwvohzXISPZcgxt80xLfsuwg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/traverse@7.25.7':
-    resolution: {integrity: sha512-jatJPT1Zjqvh/1FyJs6qAHL+Dzb7sTb+xr7Q+gM1b+1oBsMsQQ4FkVKb6dFlJvLlVssqkRzV05Jzervt9yhnzg==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/traverse@7.26.4':
     resolution: {integrity: sha512-fH+b7Y4p3yqvApJALCPJcwb0/XaOSgtK4pzV6WVjPR5GLFQBRI7pfoX2V2iM48NXvX07NUxxm1Vw98YjqTcU5w==}
     engines: {node: '>=6.9.0'}
@@ -1580,6 +1567,12 @@ packages:
 
   '@biomejs/cli-darwin-x64@1.8.3':
     resolution: {integrity: sha512-UeW44L/AtbmOF7KXLCoM+9PSgPo0IDcyEUfIoOXYeANaNXXf9mLUwV1GeF2OWjyic5zj6CnAJ9uzk2LT3v/wAw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@biomejs/cli-darwin-x64@1.9.4':
+    resolution: {integrity: sha512-ngYBh/+bEedqkSevPVhLP4QfVPCpb+4BBe2p7Xs32dBgs7rh9nY2AIYUL6BgLw1JVXV8GlpKmb/hNiuIxfPfZg==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
@@ -4761,6 +4754,10 @@ packages:
   '@socket.io/component-emitter@3.1.2':
     resolution: {integrity: sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==}
 
+  '@stripe/stripe-js@5.4.0':
+    resolution: {integrity: sha512-3tfMbSvLGB+OsJ2MsjWjWo+7sp29dwx+3+9kG/TEnZQJt+EwbF/Nomm43cSK+6oXZA9uhspgyrB+BbrPRumx4g==}
+    engines: {node: '>=12.16'}
+
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
 
@@ -5269,6 +5266,10 @@ packages:
 
   '@types/ssri@7.1.5':
     resolution: {integrity: sha512-odD/56S3B51liILSk5aXJlnYt99S6Rt9EFDDqGtJM26rKHApHcwyU/UoYHrzKkdkHMAIquGWCuHtQTbes+FRQw==}
+
+  '@types/stripe@8.0.417':
+    resolution: {integrity: sha512-PTuqskh9YKNENnOHGVJBm4sM0zE8B1jZw1JIskuGAPkMB+OH236QeN8scclhYGPA4nG6zTtPXgwpXdp+HPDTVw==}
+    deprecated: This is a stub types definition. stripe provides its own type definitions, so you do not need this installed.
 
   '@types/stylis@4.2.5':
     resolution: {integrity: sha512-1Xve+NMN7FWjY14vLoY5tL3BVEQ/n42YLwaqJIPYhotZ9uBHt87VceMwWQpzmdEt2TNXIorIFG+YeCUUW7RInw==}
@@ -9813,10 +9814,6 @@ packages:
     resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
     engines: {node: '>= 6'}
 
-  object-inspect@1.13.2:
-    resolution: {integrity: sha512-IRZSRuzJiynemAXPYtPe5BoI/RESNYR7TYm50MC5Mqbd3Jmw5y790sErYw3V6SryFJD64b74qQQs9wn5Bg/k3g==}
-    engines: {node: '>= 0.4'}
-
   object-inspect@1.13.3:
     resolution: {integrity: sha512-kDCGIbxkDSXE3euJZZXzc6to7fCrKHNI/hSRQnRuQ+BWjFNzZwiFF8fj/6o2t2G9/jTj8PSIYTfCLelLZEeRpA==}
     engines: {node: '>= 0.4'}
@@ -11836,10 +11833,6 @@ packages:
     resolution: {integrity: sha512-WPS/HvHQTYnHisLo9McqBHOJk2FkHO/tlpvldyrnem4aeQp4hai3gythswg6p01oSoTl58rcpiFAjF2br2Ak2A==}
     engines: {node: '>= 0.4'}
 
-  side-channel@1.0.6:
-    resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
-    engines: {node: '>= 0.4'}
-
   side-channel@1.1.0:
     resolution: {integrity: sha512-ZX99e6tRweoUXqR+VBrslhda51Nh5MTQwou5tnUDgbtyM0dBgmhEDtWGP/xbKn6hqfPRHujUNwz5fy/wbbhnpw==}
     engines: {node: '>= 0.4'}
@@ -12181,6 +12174,10 @@ packages:
 
   strip-literal@2.1.0:
     resolution: {integrity: sha512-Op+UycaUt/8FbN/Z2TWPBLge3jWrP3xj10f3fnYxf052bKuS3EKs1ZQcVGjnEMdsNVAM+plXRdmjrZ/KgG3Skw==}
+
+  stripe@17.5.0:
+    resolution: {integrity: sha512-kcyeAkDFjGsVl17FqnG7q/+xIjt0ZjOo9Dm+q8deAvs2Xe4iAHrhxyoP4etUVFc+/LZJANjIPVR+ZOnt9hr/Ug==}
+    engines: {node: '>=12.*'}
 
   strnum@1.0.5:
     resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
@@ -15093,18 +15090,6 @@ snapshots:
       '@babel/parser': 7.26.3
       '@babel/types': 7.26.3
 
-  '@babel/traverse@7.25.7':
-    dependencies:
-      '@babel/code-frame': 7.26.2
-      '@babel/generator': 7.26.3
-      '@babel/parser': 7.26.3
-      '@babel/template': 7.25.9
-      '@babel/types': 7.26.3
-      debug: 4.4.0(supports-color@5.5.0)
-      globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/traverse@7.26.4':
     dependencies:
       '@babel/code-frame': 7.26.2
@@ -15140,6 +15125,8 @@ snapshots:
 
   '@biomejs/cli-darwin-x64@1.8.3':
     optional: true
+
+  '@biomejs/cli-darwin-x64@1.9.4': {}
 
   '@biomejs/cli-linux-arm64-musl@1.8.3':
     optional: true
@@ -18059,7 +18046,7 @@ snapshots:
 
   '@sanity/cli@3.68.3(@types/babel__core@7.20.5)(@types/node@20.16.5)(@types/react@19.0.2)(react@19.0.0)':
     dependencies:
-      '@babel/traverse': 7.25.7
+      '@babel/traverse': 7.26.4
       '@sanity/client': 6.24.1(debug@4.4.0)
       '@sanity/codegen': 3.68.3
       '@sanity/telemetry': 0.7.9(react@19.0.0)
@@ -19013,6 +19000,8 @@ snapshots:
 
   '@socket.io/component-emitter@3.1.2': {}
 
+  '@stripe/stripe-js@5.4.0': {}
+
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
       ejs: 3.1.10
@@ -19556,6 +19545,10 @@ snapshots:
     dependencies:
       '@types/node': 20.16.5
 
+  '@types/stripe@8.0.417':
+    dependencies:
+      stripe: 17.5.0
+
   '@types/stylis@4.2.5': {}
 
   '@types/tar-stream@3.1.3':
@@ -19759,29 +19752,29 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@2.0.5(vitest@2.1.3(@types/node@22.0.2)(@vitest/ui@2.0.5)(jsdom@25.0.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.40))(terser@5.34.1))':
+  '@vitest/coverage-v8@2.0.5(vitest@2.1.3)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
-      debug: 4.3.7(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@5.5.0)
       istanbul-lib-coverage: 3.2.2
       istanbul-lib-report: 3.0.1
       istanbul-lib-source-maps: 5.0.6
       istanbul-reports: 3.1.7
-      magic-string: 0.30.11
+      magic-string: 0.30.17
       magicast: 0.3.5
-      std-env: 3.7.0
+      std-env: 3.8.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
       vitest: 2.1.3(@types/node@22.0.2)(@vitest/ui@2.0.5)(jsdom@25.0.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.40))(terser@5.34.1)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@2.1.8(vitest@2.1.8(@types/node@20.16.5)(@vitest/ui@2.0.5)(jsdom@25.0.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.40))(terser@5.34.1))':
+  '@vitest/coverage-v8@2.1.8(vitest@2.1.8)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
-      debug: 4.3.7(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@5.5.0)
       istanbul-lib-coverage: 3.2.2
       istanbul-lib-report: 3.0.1
       istanbul-lib-source-maps: 5.0.6
@@ -20515,7 +20508,7 @@ snapshots:
       es-define-property: 1.0.0
       es-errors: 1.3.0
       function-bind: 1.1.2
-      get-intrinsic: 1.2.4
+      get-intrinsic: 1.2.6
       set-function-length: 1.2.2
 
   call-bind@1.0.8:
@@ -21039,15 +21032,6 @@ snapshots:
       parse-json: 5.2.0
     optionalDependencies:
       typescript: 5.6.2
-
-  cosmiconfig@9.0.0(typescript@5.7.2):
-    dependencies:
-      env-paths: 2.2.1
-      import-fresh: 3.3.0
-      js-yaml: 4.1.0
-      parse-json: 5.2.0
-    optionalDependencies:
-      typescript: 5.7.2
 
   crc-32@1.2.2: {}
 
@@ -22739,7 +22723,7 @@ snapshots:
 
   gopd@1.0.1:
     dependencies:
-      get-intrinsic: 1.2.4
+      get-intrinsic: 1.2.6
 
   gopd@1.2.0: {}
 
@@ -24999,8 +24983,6 @@ snapshots:
 
   object-hash@3.0.0: {}
 
-  object-inspect@1.13.2: {}
-
   object-inspect@1.13.3: {}
 
   object-keys@1.1.1: {}
@@ -25727,7 +25709,7 @@ snapshots:
 
   postcss-colormin@7.0.2(postcss@8.4.40):
     dependencies:
-      browserslist: 4.24.0
+      browserslist: 4.24.3
       caniuse-api: 3.0.0
       colord: 2.9.3
       postcss: 8.4.40
@@ -25735,7 +25717,7 @@ snapshots:
 
   postcss-convert-values@7.0.4(postcss@8.4.40):
     dependencies:
-      browserslist: 4.24.0
+      browserslist: 4.24.3
       postcss: 8.4.40
       postcss-value-parser: 4.2.0
 
@@ -25888,7 +25870,7 @@ snapshots:
 
   postcss-merge-rules@7.0.4(postcss@8.4.40):
     dependencies:
-      browserslist: 4.24.0
+      browserslist: 4.24.3
       caniuse-api: 3.0.0
       cssnano-utils: 5.0.0(postcss@8.4.40)
       postcss: 8.4.40
@@ -25908,7 +25890,7 @@ snapshots:
 
   postcss-minify-params@7.0.2(postcss@8.4.40):
     dependencies:
-      browserslist: 4.24.0
+      browserslist: 4.24.3
       cssnano-utils: 5.0.0(postcss@8.4.40)
       postcss: 8.4.40
       postcss-value-parser: 4.2.0
@@ -25975,7 +25957,7 @@ snapshots:
 
   postcss-normalize-unicode@7.0.2(postcss@8.4.40):
     dependencies:
-      browserslist: 4.24.0
+      browserslist: 4.24.3
       postcss: 8.4.40
       postcss-value-parser: 4.2.0
 
@@ -26085,7 +26067,7 @@ snapshots:
 
   postcss-reduce-initial@7.0.2(postcss@8.4.40):
     dependencies:
-      browserslist: 4.24.0
+      browserslist: 4.24.3
       caniuse-api: 3.0.0
       postcss: 8.4.40
 
@@ -26398,7 +26380,7 @@ snapshots:
 
   qs@6.13.0:
     dependencies:
-      side-channel: 1.0.6
+      side-channel: 1.1.0
 
   querystringify@2.2.0: {}
 
@@ -27529,13 +27511,6 @@ snapshots:
       object-inspect: 1.13.3
       side-channel-map: 1.0.1
 
-  side-channel@1.0.6:
-    dependencies:
-      call-bind: 1.0.7
-      es-errors: 1.3.0
-      get-intrinsic: 1.2.4
-      object-inspect: 1.13.2
-
   side-channel@1.1.0:
     dependencies:
       es-errors: 1.3.0
@@ -27937,6 +27912,11 @@ snapshots:
   strip-literal@2.1.0:
     dependencies:
       js-tokens: 9.0.0
+
+  stripe@17.5.0:
+    dependencies:
+      '@types/node': 20.16.5
+      qs: 6.13.0
 
   strnum@1.0.5: {}
 
